@@ -1,0 +1,94 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 570" width="1800" height="1140" font-family="Excalifont, Xiaolai, sans-serif, Segoe UI Emoji">
+  <defs>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1971c2"/>
+    </marker>
+    <marker id="arrow-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#f08c00"/>
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2f9e44"/>
+    </marker>
+    <marker id="arrow-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#e03131"/>
+    </marker>
+    <marker id="arrow-grey" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#495057"/>
+    </marker>
+  </defs>
+
+  <text x="450" y="40" font-size="28" fill="#1971c2" text-anchor="middle" font-weight="bold">Action Lifecycle</text>
+  <text x="450" y="65" font-size="16" fill="#495057" text-anchor="middle">user taps button → state transitions → UI reacts</text>
+
+  <!-- Trigger (User / Widget) -->
+  <rect x="40" y="240" width="140" height="70" rx="10" fill="#e7f5ff" stroke="#1971c2" stroke-width="2"/>
+  <text x="110" y="270" font-size="18" fill="#1971c2" text-anchor="middle" font-weight="bold">Widget</text>
+  <text x="110" y="293" font-size="14" fill="#1971c2" text-anchor="middle">.run(...)</text>
+
+  <!-- States row -->
+  <!-- Idle -->
+  <rect x="230" y="245" width="120" height="60" rx="10" fill="#f1f3f5" stroke="#495057" stroke-width="2"/>
+  <text x="290" y="270" font-size="18" fill="#495057" text-anchor="middle" font-weight="bold">idle</text>
+  <text x="290" y="290" font-size="13" fill="#495057" text-anchor="middle">initial</text>
+
+  <!-- Loading -->
+  <rect x="395" y="245" width="120" height="60" rx="10" fill="#fff3bf" stroke="#f08c00" stroke-width="2"/>
+  <text x="455" y="270" font-size="18" fill="#f08c00" text-anchor="middle" font-weight="bold">loading</text>
+  <text x="455" y="290" font-size="13" fill="#f08c00" text-anchor="middle">in flight</text>
+
+  <!-- Success -->
+  <rect x="560" y="170" width="120" height="60" rx="10" fill="#d3f9d8" stroke="#2f9e44" stroke-width="2"/>
+  <text x="620" y="195" font-size="18" fill="#2f9e44" text-anchor="middle" font-weight="bold">success(T)</text>
+  <text x="620" y="215" font-size="13" fill="#2f9e44" text-anchor="middle">resolved</text>
+
+  <!-- Error -->
+  <rect x="560" y="320" width="120" height="60" rx="10" fill="#ffe3e3" stroke="#e03131" stroke-width="2"/>
+  <text x="620" y="345" font-size="18" fill="#e03131" text-anchor="middle" font-weight="bold">error(e, st)</text>
+  <text x="620" y="365" font-size="13" fill="#e03131" text-anchor="middle">threw</text>
+
+  <!-- Arrows: widget → idle → loading -->
+  <line x1="180" y1="275" x2="226" y2="275" stroke="#1971c2" stroke-width="2" marker-end="url(#arrow-blue)"/>
+  <line x1="350" y1="275" x2="391" y2="275" stroke="#495057" stroke-width="2" marker-end="url(#arrow-grey)"/>
+
+  <!-- loading → success -->
+  <path d="M 515 260 Q 540 240 556 205" stroke="#f08c00" stroke-width="2" fill="none" marker-end="url(#arrow-orange)"/>
+  <!-- loading → error -->
+  <path d="M 515 290 Q 540 310 556 345" stroke="#f08c00" stroke-width="2" fill="none" marker-end="url(#arrow-orange)"/>
+
+  <!-- Listeners panel (right column) -->
+  <rect x="740" y="155" width="140" height="90" rx="10" fill="#d3f9d8" stroke="#2f9e44" stroke-width="2"/>
+  <text x="810" y="180" font-size="14" fill="#2f9e44" text-anchor="middle" font-weight="bold">onSuccess(data)</text>
+  <text x="810" y="205" font-size="12" fill="#2f9e44" text-anchor="middle">navigate</text>
+  <text x="810" y="225" font-size="12" fill="#2f9e44" text-anchor="middle">show toast</text>
+
+  <rect x="740" y="305" width="140" height="90" rx="10" fill="#ffe3e3" stroke="#e03131" stroke-width="2"/>
+  <text x="810" y="330" font-size="14" fill="#e03131" text-anchor="middle" font-weight="bold">onError(e, st)</text>
+  <text x="810" y="355" font-size="12" fill="#e03131" text-anchor="middle">log</text>
+  <text x="810" y="375" font-size="12" fill="#e03131" text-anchor="middle">show error toast</text>
+
+  <line x1="680" y1="200" x2="736" y2="200" stroke="#2f9e44" stroke-width="2" marker-end="url(#arrow-green)"/>
+  <line x1="680" y1="350" x2="736" y2="350" stroke="#e03131" stroke-width="2" marker-end="url(#arrow-red)"/>
+
+  <!-- watch (render) panel -->
+  <rect x="395" y="460" width="290" height="90" rx="10" fill="#e7f5ff" stroke="#1971c2" stroke-width="2"/>
+  <text x="540" y="488" font-size="16" fill="#1971c2" text-anchor="middle" font-weight="bold">ref.watch(action).isLoading</text>
+  <text x="540" y="512" font-size="13" fill="#1971c2" text-anchor="middle">spinner · disabled button · skeleton</text>
+  <text x="540" y="532" font-size="12" fill="#495057" text-anchor="middle" font-style="italic">(rebuild on every transition)</text>
+
+  <line x1="455" y1="305" x2="455" y2="430" stroke="#1971c2" stroke-width="2" stroke-dasharray="4 5" marker-end="url(#arrow-blue)"/>
+
+  <!-- Labels for the two consumption styles -->
+  <text x="100" y="170" font-size="14" fill="#1971c2" font-weight="bold">TRIGGER</text>
+  <text x="100" y="190" font-size="11" fill="#495057">read(notifier).run()</text>
+
+  <text x="240" y="170" font-size="14" fill="#495057" font-weight="bold">STATE</text>
+  <text x="240" y="190" font-size="11" fill="#495057">sealed ActionState&lt;T&gt;</text>
+
+  <text x="745" y="135" font-size="14" fill="#2f9e44" font-weight="bold">LISTEN (side effects)</text>
+  <text x="745" y="151" font-size="11" fill="#495057">ref.listenAction(...)</text>
+
+  <text x="395" y="450" font-size="14" fill="#1971c2" font-weight="bold">WATCH (render)</text>
+
+</svg>
