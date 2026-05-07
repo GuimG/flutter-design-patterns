@@ -8,11 +8,12 @@ This is not a package you install. It's a reference — **read it, understand th
 
 ## Table of contents
 
-|     | Pattern                                                          | Problem it solves                                              |
-| --- | ---------------------------------------------------------------- | -------------------------------------------------------------- |
-| 🔌  | [Dependency Inversion](docs/patterns/dependency-inversion.md)    | Concrete SDKs are scattered across the codebase.               |
-| 📡  | [In-Process Domain Event Bus](docs/patterns/domain-event-bus.md) | Features depend on each other, creating a circular import web. |
-| ⚡  | [Actions](docs/patterns/actions.md)                              | Imperative one-shot operations don't fit `AsyncValue`.         |
+|     | Pattern                                                          | Problem it solves                                               |
+| --- | ---------------------------------------------------------------- | --------------------------------------------------------------- |
+| 🔌  | [Dependency Inversion](docs/patterns/dependency-inversion.md)    | Concrete SDKs are scattered across the codebase.                |
+| 📡  | [In-Process Domain Event Bus](docs/patterns/domain-event-bus.md) | Features depend on each other, creating a circular import web.  |
+| ⚡  | [Actions](docs/patterns/actions.md)                              | Imperative one-shot operations don't fit `AsyncValue`.          |
+| 📦  | [Outbox](docs/patterns/outbox.md)                                | Writes that absolutely must reach the server keep getting lost. |
 
 ## Contributing
 
