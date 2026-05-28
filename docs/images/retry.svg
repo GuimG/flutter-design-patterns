@@ -1,0 +1,124 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 600" width="1960" height="1200" font-family="Excalifont, Xiaolai, sans-serif, Segoe UI Emoji">
+  <defs>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1971c2"/>
+    </marker>
+    <marker id="arrow-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#f08c00"/>
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2f9e44"/>
+    </marker>
+    <marker id="arrow-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#e03131"/>
+    </marker>
+    <marker id="arrow-grey" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#495057"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="490" y="40" font-size="28" fill="#1971c2" text-anchor="middle" font-weight="bold">Retry Lifecycle</text>
+  <text x="490" y="65" font-size="16" fill="#495057" text-anchor="middle">one loading state · exponential backoff · cancel on dispose</text>
+
+  <!-- ===================== Caller / Provider ===================== -->
+  <rect x="40" y="240" width="160" height="90" rx="10" fill="#e7f5ff" stroke="#1971c2" stroke-width="2"/>
+  <text x="120" y="270" font-size="18" fill="#1971c2" text-anchor="middle" font-weight="bold">Provider</text>
+  <text x="120" y="292" font-size="13" fill="#1971c2" text-anchor="middle">ref.retry(</text>
+  <text x="120" y="310" font-size="13" fill="#1971c2" text-anchor="middle">run:, policy:)</text>
+  <text x="68" y="225" font-size="14" fill="#1971c2" font-weight="bold">CALLER</text>
+  <text x="40" y="345" font-size="11" fill="#495057" font-style="italic">FutureProvider body</text>
+
+  <!-- Arrow caller → loop -->
+  <line x1="200" y1="285" x2="236" y2="285" stroke="#1971c2" stroke-width="2" marker-end="url(#arrow-blue)"/>
+
+  <!-- ===================== Attempts (timeline) ===================== -->
+  <text x="455" y="170" font-size="14" fill="#495057" font-weight="bold" text-anchor="middle">LOOP — bounded by maxAttempts</text>
+  <text x="455" y="187" font-size="11" fill="#495057" font-style="italic" text-anchor="middle">delay = baseDelay × multiplier^attempt  (capped, jittered)</text>
+
+  <!-- Attempt 1 -->
+  <rect x="240" y="255" width="100" height="60" rx="10" fill="#fff3bf" stroke="#f08c00" stroke-width="2"/>
+  <text x="290" y="280" font-size="15" fill="#f08c00" text-anchor="middle" font-weight="bold">attempt 1</text>
+  <text x="290" y="300" font-size="12" fill="#f08c00" text-anchor="middle">run()</text>
+
+  <!-- gap 200ms -->
+  <line x1="340" y1="285" x2="368" y2="285" stroke="#f08c00" stroke-width="2" stroke-dasharray="3 3" marker-end="url(#arrow-orange)"/>
+  <text x="354" y="277" font-size="10" fill="#f08c00" text-anchor="middle">200ms</text>
+
+  <!-- Attempt 2 -->
+  <rect x="370" y="255" width="100" height="60" rx="10" fill="#fff3bf" stroke="#f08c00" stroke-width="2"/>
+  <text x="420" y="280" font-size="15" fill="#f08c00" text-anchor="middle" font-weight="bold">attempt 2</text>
+  <text x="420" y="300" font-size="12" fill="#f08c00" text-anchor="middle">run()</text>
+
+  <!-- gap 400ms -->
+  <line x1="470" y1="285" x2="503" y2="285" stroke="#f08c00" stroke-width="2" stroke-dasharray="3 3" marker-end="url(#arrow-orange)"/>
+  <text x="486" y="277" font-size="10" fill="#f08c00" text-anchor="middle">400ms</text>
+
+  <!-- Attempt 3 -->
+  <rect x="505" y="255" width="100" height="60" rx="10" fill="#fff3bf" stroke="#f08c00" stroke-width="2"/>
+  <text x="555" y="280" font-size="15" fill="#f08c00" text-anchor="middle" font-weight="bold">attempt 3</text>
+  <text x="555" y="300" font-size="12" fill="#f08c00" text-anchor="middle">run()</text>
+
+  <!-- gap 800ms -->
+  <line x1="605" y1="285" x2="643" y2="285" stroke="#f08c00" stroke-width="2" stroke-dasharray="3 3" marker-end="url(#arrow-orange)"/>
+  <text x="624" y="277" font-size="10" fill="#f08c00" text-anchor="middle">800ms</text>
+
+  <!-- Attempt N -->
+  <rect x="645" y="255" width="100" height="60" rx="10" fill="#fff3bf" stroke="#f08c00" stroke-width="2"/>
+  <text x="695" y="280" font-size="15" fill="#f08c00" text-anchor="middle" font-weight="bold">attempt N</text>
+  <text x="695" y="300" font-size="12" fill="#f08c00" text-anchor="middle">last try</text>
+
+  <!-- Bracket below attempts -->
+  <path d="M 240 330 L 240 340 L 745 340 L 745 330" stroke="#f08c00" stroke-width="1.5" fill="none"/>
+  <text x="492" y="358" font-size="12" fill="#f08c00" text-anchor="middle" font-style="italic">each throw → shouldRetry?(error) ? delay : rethrow</text>
+
+  <!-- ===================== Outcomes (right column) ===================== -->
+  <text x="855" y="170" font-size="14" fill="#495057" font-weight="bold" text-anchor="middle">OUTCOMES</text>
+
+  <!-- success -->
+  <rect x="785" y="190" width="160" height="65" rx="10" fill="#d3f9d8" stroke="#2f9e44" stroke-width="2"/>
+  <text x="865" y="215" font-size="15" fill="#2f9e44" text-anchor="middle" font-weight="bold">return T</text>
+  <text x="865" y="235" font-size="12" fill="#2f9e44" text-anchor="middle">first run() that resolves</text>
+  <text x="865" y="250" font-size="11" fill="#495057" text-anchor="middle" font-style="italic">AsyncValue.data</text>
+
+  <!-- exhausted -->
+  <rect x="785" y="275" width="160" height="65" rx="10" fill="#ffe3e3" stroke="#e03131" stroke-width="2"/>
+  <text x="865" y="300" font-size="15" fill="#e03131" text-anchor="middle" font-weight="bold">rethrow</text>
+  <text x="865" y="320" font-size="12" fill="#e03131" text-anchor="middle">exhausted · !canRetry</text>
+  <text x="865" y="335" font-size="11" fill="#495057" text-anchor="middle" font-style="italic">AsyncValue.error</text>
+
+  <!-- cancelled -->
+  <rect x="785" y="360" width="160" height="65" rx="10" fill="#f1f3f5" stroke="#495057" stroke-width="2"/>
+  <text x="865" y="385" font-size="15" fill="#495057" text-anchor="middle" font-weight="bold">RetryCancelled</text>
+  <text x="865" y="405" font-size="12" fill="#495057" text-anchor="middle">sentinel · swallowed</text>
+  <text x="865" y="420" font-size="11" fill="#495057" text-anchor="middle" font-style="italic">no state write</text>
+
+  <!-- Arrows from attempts → outcomes -->
+  <!-- any attempt → success -->
+  <path d="M 555 255 Q 660 215 781 215" stroke="#2f9e44" stroke-width="2" fill="none" marker-end="url(#arrow-green)"/>
+  <text x="650" y="208" font-size="11" fill="#2f9e44" font-weight="bold">2xx</text>
+  <!-- last attempt → rethrow -->
+  <line x1="745" y1="295" x2="781" y2="305" stroke="#e03131" stroke-width="2" marker-end="url(#arrow-red)"/>
+
+  <!-- ===================== Cancellation channel (below) ===================== -->
+  <rect x="40" y="450" width="220" height="90" rx="10" fill="#f1f3f5" stroke="#495057" stroke-width="2" stroke-dasharray="4 5"/>
+  <text x="150" y="478" font-size="15" fill="#495057" text-anchor="middle" font-weight="bold">Ref.onDispose</text>
+  <text x="150" y="500" font-size="12" fill="#495057" text-anchor="middle">notifier disposed mid-loop</text>
+  <text x="150" y="518" font-size="12" fill="#495057" text-anchor="middle">cancelled = true</text>
+  <text x="150" y="535" font-size="11" fill="#495057" text-anchor="middle" font-style="italic">checked before &amp; after each await</text>
+
+  <!-- Cancel arrow up into the loop bracket, then over to RetryCancelled -->
+  <path d="M 260 495 Q 400 495 400 380 Q 400 360 492 360" stroke="#495057" stroke-width="2" stroke-dasharray="4 5" fill="none" marker-end="url(#arrow-grey)"/>
+  <text x="320" y="455" font-size="11" fill="#495057" font-style="italic">cuts in any time</text>
+  <path d="M 492 360 Q 640 380 781 392" stroke="#495057" stroke-width="2" stroke-dasharray="4 5" fill="none" marker-end="url(#arrow-grey)"/>
+
+  <!-- ===================== Policy callout (bottom-right) ===================== -->
+  <rect x="525" y="450" width="420" height="100" rx="10" fill="#f8f9fa" stroke="#495057" stroke-width="2" stroke-dasharray="4 5"/>
+  <text x="545" y="475" font-size="13" fill="#495057" font-weight="bold">RetryPolicy (defaults)</text>
+  <text x="545" y="497" font-size="12" fill="#495057">• maxAttempts: 4   ·   baseDelay: 200ms   ·   maxDelay: 10s</text>
+  <text x="545" y="515" font-size="12" fill="#495057">• multiplier: 2.0   ·   jitter: ±25%</text>
+  <text x="545" y="533" font-size="12" fill="#495057" font-style="italic">tune per call site (cold-start endpoints → more, longer cap)</text>
+
+</svg>
